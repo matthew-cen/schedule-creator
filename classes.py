@@ -223,7 +223,7 @@ class Database:
             self.print_courses() # show user added courses
             self.print_commands() # show user available commands
             try:
-                user_res = parse_command_num(input("Enter a command via the command number: "), 3)
+                user_res = parse_command_num(input("Enter a command via the command number: "), 4)
                 # Validate input as a number 
                 if user_res == 1:
                     self.add_course()
@@ -233,6 +233,8 @@ class Database:
                 elif user_res == 3:
                     user_selected_course = input("Please enter the course number you want to remove: ")
                     self.remove_course(user_selected_course)
+                elif user_res == 4:
+                    self.gen_schedules()
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
 
