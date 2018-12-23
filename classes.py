@@ -30,6 +30,16 @@ class Section:
                     break
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 5")
+
+    # COMMAND METHODS
+    def set_timeslot(self):
+        while True:
+            try:
+                time_start = int(input("Please enter the START time of the section as minutes since 12AM: "))
+                time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
+                self.timeslot = (time_start, time_end)
+            except:
+                print("You provided an invalid input, please try again.")
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
@@ -55,11 +65,7 @@ class Course:
         else:
             self.sections[section_id] = Section(section_id) # instantiate new section 
             
-            # Timeslot Setting
-            time_start = int(input("Please enter the START time of the section as minutes since 12AM: "))
-            time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
-            
-            section_days = []
+            self.sections[section_id].set_timeslot()
             while True:
                 day_res = input("Please enter the day of the week the this section takes place: ")
                 # TODO: Day and time validation
