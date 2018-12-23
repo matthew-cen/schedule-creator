@@ -40,7 +40,7 @@ class Section:
                 time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
                 self.timeslot = (time_start, time_end)
                 break
-            except:
+            except TypeError:
                 print("You provided an invalid input, please try again.")
     def add_day(self):
         while True:
