@@ -1,7 +1,8 @@
 # TODO: Implement modification/validation logic
 # TODO: Generate schedule inferface
 # TODO: Default values
-from utilities import parse_day
+# TODO: Use datetime module for time handling
+from utilities import parse_day, parse_time
 
 class Section:
     timeslot = None
@@ -36,11 +37,11 @@ class Section:
     def set_timeslot(self):
         while True:
             try:
-                time_start = int(input("Please enter the START time of the section as minutes since 12AM: "))
-                time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
+                time_start = parse_time(input("Please enter the START time of the section as minutes since 12AM: "))
+                time_end = parse_time(input("Please enter the END time of the section as minutes since 12AM: "))
                 self.timeslot = (time_start, time_end)
                 break
-            except TypeError:
+            except ValueError:
                 print("You provided an invalid input, please try again.")
     def add_day(self):
         while True:
