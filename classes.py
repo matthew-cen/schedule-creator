@@ -1,4 +1,7 @@
 # TODO: Implement modification logic
+# TODO: Generate schedule inferface
+# TODO: Use exists methods
+
 class Section:
     def __init__(self, time_start_end, days_lst):
         self.timeslot = time_start_end
@@ -14,28 +17,32 @@ class Course:
     # COMMAND METHODs
     def add_section(self):        
         section_id = input("Please enter the section ID: ")
-        time_start = int(input("Please enter the start time of the section as minutes since 12AM: "))
-        time_end = int(input("Please enter the end time of the section as minutes since 12AM: "))
-        section_days = []
-        while True:
-            day_res = input("Please enter the day of the week the this section takes place: ")
-            # TODO: Day and time validation
-            section_days.append(day_res)
-            user_res = input("Do you want to add another day for this section? (Y/N): ").upper()
-            if user_res == "N":
-                break
-            elif user_res != "Y":
-                print("[ERROR] Invalid command. Please try again") 
-        self.sections[section_id] = Section((time_start, time_end), section_days)
+        if self.section_exists(section_id):
+            print(f"[ERROR] The following section already exists: {section_id}")
+            return
+        else:
+            time_start = int(input("Please enter the start time of the section as minutes since 12AM: "))
+            time_end = int(input("Please enter the end time of the section as minutes since 12AM: "))
+            section_days = []
+            while True:
+                day_res = input("Please enter the day of the week the this section takes place: ")
+                # TODO: Day and time validation
+                section_days.append(day_res)
+                user_res = input("Do you want to add another day for this section? (Y/N): ").upper()
+                if user_res == "N":
+                    break
+                elif user_res != "Y":
+                    print("[ERROR] Invalid command. Please try again") 
+            self.sections[section_id] = Section((time_start, time_end), section_days)
     def modify_section(self, section_id):
-        try:
+        if self.section_exists(section_id):
             pass
-        except ValueError:
+        else:
             print(f"The following section does not exist: {section_id}")
     def remove_section(self, section_id):
-        try:
+        if self.section_exists(section_id):
             self.sections.pop(section_id)
-        except ValueError:
+        else:
             print(f"The following section does not exist: {section_id}")
     # INTERFACE
     def interface(self):
@@ -82,7 +89,6 @@ class Course:
         else:
             print("<<<You have added no sections to this course>>>")
         print("-----------------------------------------------------")
-    @staticmethod
     def section_exists(self, section_id):
         return section_id in self.sections.keys()
 
@@ -99,8 +105,8 @@ class Database:
         """
         course_num = input("Please enter the course number: ") # asks user to input course num 
         course_name = input("Please enter the course name: ") # asks user to input course name
-        if course_num in self.courses.keys(): # checks if the course number already exists
-            print(f"There is already a course with this course number with name: {self.courses[course_num]}")
+        if self.course_exists(course_num): # checks if the course number already exists
+            print(f"[ERROR] The following course already exists: {course_num}")
         else: 
             self.courses[course_num] = Course(course_num, course_name) # instantiate new Course object
             print(f"Successfully added the following course: {course_name}")
@@ -108,15 +114,19 @@ class Database:
         """
         Command Number : 2
         """
-        print(f"Selected the following course for modification: {course_num}")
+        if self.course_exists(course_num):
+            print(f"Selected the following course for modification: {course_num}")
+        else:
+            print(f"[ERROR] The provided course number does not exist: {course_num}")
+
     def remove_course(self, course_num):
         """
         Command Number : 3
         """
-        try:
+        if self.course_exists(course_num):
             self.courses.pop(course_num) # remove course from database
             print(f"Successfully removed the following course: {course_num}")
-        except KeyError:
+        else:
             print("[ERROR] The provided course number does not exist:" + course_num)
     
     @staticmethod
@@ -162,7 +172,5 @@ class Database:
         else:
             print("<<<You have added no courses>>>")
         print("-----------------------------------------------------")
-
-    @staticmethod
     def course_exists(self, course_num):
         return course_num in self.courses.keys()
