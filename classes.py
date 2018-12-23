@@ -7,7 +7,17 @@ class Section:
         self.timeslot = time_start_end
         self.days = days_lst #TODO: change to use binary string?
     def __str__(self):
-        return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"    
+        return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
+
+    
+    # UTILITY METHODS
+    @staticmethod 
+    def print_commands(self):
+        print("1) Change timeslot")
+        print("2) Add a day")
+        print("3) Remove a day")
+        print("4) Remove all days")
+        print("5) Return to course interface")  
 class Course:
     # FIELDS
     sections = {}
