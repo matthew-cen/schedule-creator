@@ -63,8 +63,8 @@ class Course:
     def interface(self):
         while True:
             print(f"\nCourse: {self.course_id} - {self.course_name}")
-            self.print_sections(self) # show sections in current course
-            self.print_commands(self)
+            self.print_sections() # show sections in current course
+            self.print_commands()
             try:
                 user_res = int(input("Enter a command via the command number: "))
                 # Validate input as a number 
@@ -88,13 +88,12 @@ class Course:
         return f"Course #: {self.course_id} Course Name: {self.course_name}"
 
     @staticmethod
-    def print_commands(self):
+    def print_commands():
         print("1) Add a new section")
         print("2) Modify a section")
         print("3) Remove a section")
         print("4) Return to main menu")
 
-    @staticmethod
     def print_sections(self):
         print(f"Number of Sections: {len(self.sections)}")
         print("-----------------------------------------------------")
@@ -159,8 +158,8 @@ class Database:
     def interface(self):
         while True:
             print() # prints newline for readability 
-            self.print_courses(self) # show user added courses
-            self.print_commands(self) # show user available commands
+            self.print_courses() # show user added courses
+            self.print_commands() # show user available commands
             try:
                 user_res = int(input("Enter a command via the command number: "))
                 # Validate input as a number 
@@ -177,13 +176,12 @@ class Database:
 
     # UTILITY METHODS
     @staticmethod # function decorator for a static method (python's version of const) 
-    def print_commands(self):
+    def print_commands():
         print("1) Add a new course")
         print("2) Modify a course")
         print("3) Remove a course")
         print("4) Generate Valid Schedules")
 
-    @staticmethod
     def print_courses(self):
         print(f"Number of Courses: {len(self.courses)}")
         print("-----------------------------------------------------")
