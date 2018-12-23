@@ -1,3 +1,5 @@
+# TODO: Implement Exceptions
+
 # IMPORTS
 from datetime import *
 # CONSTANTS
@@ -65,11 +67,20 @@ class Database:
             print("[ERROR] The provided course number does not exist:" + course_num)
     def interface(self):
         self.print_commands() # show user available commands
+        while true:
+            user_res = input("Enter a command via the command number: ")
+            
+            # Validate input as a number 
+            if user_res == 1:
+                self.add_course()
+            elif user_res == 2:
+                self.modify_course()
+            elif user_res == 3:
+                self.remove_course()
+            else:
+                print("Invalid command. Please enter a number between 1 and 3")
 
-        user_res = input("Enter a command via the command number: ")
-        if user_res.isdigit()
-        # Validate command number
-        print("Invalid command. Please enter a number between 1 and 3")
+
     @staticmethod # function decorator for a static method (python's version of const) 
     def print_commands(self):
         print("1) Add a new course")
