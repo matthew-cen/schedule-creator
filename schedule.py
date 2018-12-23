@@ -44,7 +44,8 @@ def create_schedule(this_tuple):
     for combinations in product2(this_tuple):
         time_conflicts = {}
         good_schedule = True
-        for extra_layer in combinations: # there is an extra tuple layer that this for loop goes through
+
+        for extra_layer in combinations: # there is an extra tuple layer that this for loop goes thorugh
 
             for dayNum in extra_layer[0][0]: # gets the day number as a key
                 if dayNum not in time_conflicts: # if there is no key yet, create one
@@ -58,7 +59,7 @@ def create_schedule(this_tuple):
                             break
 
         if good_schedule is True: # if no time conflicts, add it to total possible schedules
-            total_schedules.append(combinations)
+            yield combinations
 
     print(len(total_schedules))
     for i in total_schedules:
@@ -66,6 +67,44 @@ def create_schedule(this_tuple):
 
     print("-----------------------------------------------------------")
 
+def displaySchedule(this_tuple):
+    this_dictionary = {}
+    for elem in this_tuple:
+        for sections in elem:
+            for day in sections[0]:
+                if day not in this_dictionary:
+                    this_dictionary[day] = [(sections[1],sections[2])]
+
+                else:
+                    this_dictionary[day].append((sections[1], sections[2]))
+
+    #for keys, args in this_dictionary.items():
+        #print(keys, " ", args)
+
+    for keys in this_dictionary: # sorts each value of the dictionary
+        this_dictionary[keys].sort(key=lambda tup:tup[0])
+
+    for i in range(1,8):
+        if (i == 1):
+            print("Monday", end=" ")
+        if (i == 2):
+            print("Tuesday", end=" ")
+        if (i == 3):
+            print("Wednesday", end=" ")
+        if (i==4):
+            print("Thursday", end=" ")
+        if (i==5):
+            print("Friday", end=" ")
+        if (i==6):
+            print("Saturday", end=" ")
+        if (i==7):
+            print("Sunday", end=" ")
+
+        if i in this_dictionary:
+            print(this_dictionary[i])
+        else:
+            print("There no scheduled classes on this day :(")
+    print("-----------------------------------------------------------")
 
 def main():
     alist1 = [(1,2), (2,3), (4,5)]
@@ -76,9 +115,9 @@ def main():
                 # (1, 2)                                      # (3, 4)
     timeslots = (((1000, 2000), (2000, 3000), (3000, 4000)), ((5000,6000), (0000, 7000), (7000,8000)))
 
-
-    create_schedule((((((1, 2), 1000, 2000),), (((1, 2), 2000, 3000),), (((1, 2), 3000, 4000),),),
-                     ((((3, 4), 5000, 6000),), (((3, 4), 0000, 7000),), (((3, 4), 7000, 8000),),)))
+    for i in create_schedule((((((1, 2), 1000, 2000),), (((1, 2), 2000, 3000),), (((1, 2), 3000, 4000),),),
+                              ((((3, 4), 5000, 6000),), (((3, 4), 0000, 7000),), (((3, 4), 7000, 8000),),))):
+        displaySchedule(i)
 
     create_schedule((((((1, 2), 1000, 2000),), (((1, 2), 2000, 3000),), (((1, 2), 3000, 4000),),),
                  ((((1, 2), 1500, 2500),), (((3, 4), 0000, 7000),), (((3, 4), 7000, 8000),),)))
