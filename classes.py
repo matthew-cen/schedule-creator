@@ -137,6 +137,8 @@ class Course:
                     self.modify_section()
                 elif user_res == 3:
                     self.remove_section()
+                elif user_res == 4:
+                    break
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
 
