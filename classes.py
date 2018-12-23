@@ -39,6 +39,7 @@ class Section:
                 time_start = int(input("Please enter the START time of the section as minutes since 12AM: "))
                 time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
                 self.timeslot = (time_start, time_end)
+                break
             except:
                 print("You provided an invalid input, please try again.")
     def add_day(self):
@@ -46,6 +47,7 @@ class Section:
             try:
                 user_day_res = parse_day(input("Please enter the day you want to add: "))
                 self.days[user_day_res] = 1
+                breal
             except ValueError:
                 print("You provided an invalid input, please try again.")
     def remove_day(self):
@@ -53,6 +55,7 @@ class Section:
             try:
                 user_day_res = parse_day(input("Please enter the day you want to remove: "))
                 self.days[user_day_res] = 0
+                break
             except ValueError:
                 print("You provided an invalid input, please try again.")
     # UTILITY METHODS
