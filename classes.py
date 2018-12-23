@@ -1,13 +1,14 @@
 # TODO: Implement modification/validation logic
 # TODO: Generate schedule inferface
+# TODO: Default values
+
 
 class Section:
     timeslot = None
     def __init__(self, section_id):
         self.section_id = section_id
         self.timeslot = ()
-        self.days = []
-        # self.days = days_lst #TODO: change to use binary string?
+        self.days = [0,0,0,0,0,0,0] # stores days at bits starting with Sunday
     def __str__(self):
         return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
 
@@ -21,9 +22,9 @@ class Section:
                 if user_res == 1:
                     self.set_timeslot()
                 elif user_res == 2:
-                    self.add_day(day_num)
+                    self.add_day()
                 elif user_res == 3:
-                    self.remove_day(day_num)
+                    self.remove_day()
                 elif user_res == 4:
                     self.remove_all_days()
                 elif user_res == 5: # Exit interface for Section
@@ -40,6 +41,9 @@ class Section:
                 self.timeslot = (time_start, time_end)
             except:
                 print("You provided an invalid input, please try again.")
+    def add_day(self):
+                user_day_res = parse_day(input("Please enter the day of the week the this section takes place: "))
+                self.days[user_day_res] = 1
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
@@ -66,10 +70,11 @@ class Course:
             self.sections[section_id] = Section(section_id) # instantiate new section 
             
             self.sections[section_id].set_timeslot()
+            # Loop to allow user to add multiple days at once
             while True:
-                day_res = input("Please enter the day of the week the this section takes place: ")
                 # TODO: Day and time validation
-                section_days.append(day_res)
+                # TODO: Allow user to input multiple days in one input string
+                self.sections[section_id].add_day()
                 user_res = input("Do you want to add another day for this section? (Y/N): ").upper()
                 if user_res == "N":
                     break
