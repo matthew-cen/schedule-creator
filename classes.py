@@ -44,7 +44,7 @@ class Section:
     def add_day(self):
         while True:
             try:
-                user_day_res = parse_day(input("Please enter the day of the week the this section takes place: "))
+                user_day_res = parse_day(input("Please enter the day you want to add: "))
                 self.days[user_day_res] = 1
             except ValueError:
                 print("You provided an invalid input, please try again.")
