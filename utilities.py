@@ -15,6 +15,17 @@ def parse_command(command_str, valid_comms):
     """
     command_str = command_str.strip()
     if command_str in valid_comms:
-            return command_str
+        return command_str
+    else:
+        raise ValueError
+# Peforms command validation for commands of numeric commands.
+def parse_command_num(command_str, end, start = 1):
+    """
+    start: Starting value of valid integer commands
+    end: Ending value of valid integer commands
+    """
+    command_int = int(command_str.strip())
+    if command_int >= start and command_int <= end:
+        return command_int
     else:
         raise ValueError
