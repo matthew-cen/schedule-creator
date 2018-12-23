@@ -2,7 +2,7 @@
 # TODO: Generate schedule inferface
 # TODO: Default values
 # TODO: Use datetime module for time handling
-from utilities import parse_day, parse_time
+from utilities import parse_day, parse_time, parse_command, parse_command_num
 from exceptions import *
 
 class Section:
@@ -20,7 +20,7 @@ class Section:
             print(self)
             self.print_commands()
             try:
-                user_res = int(input("Enter a command via the command number: "))
+                user_res = parse_command_num(input("Enter a command via the command number: "), 5)
                 # Validate input as a number 
                 if user_res == 1:
                     self.set_timeslot()
@@ -129,7 +129,7 @@ class Course:
             self.print_sections() # show sections in current course
             self.print_commands()
             try:
-                user_res = int(input("Enter a command via the command number: "))
+                user_res = parse_command_num(input("Enter a command via the command number: "), 4)
                 # Validate input as a number 
                 if user_res == 1:
                     self.add_section()
@@ -223,7 +223,7 @@ class Database:
             self.print_courses() # show user added courses
             self.print_commands() # show user available commands
             try:
-                user_res = int(input("Enter a command via the command number: "))
+                user_res = parse_command_num(input("Enter a command via the command number: "), 3)
                 # Validate input as a number 
                 if user_res == 1:
                     self.add_course()
