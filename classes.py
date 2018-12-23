@@ -113,6 +113,7 @@ class Course:
     # INTERFACE
     def interface(self):
         while True:
+            print("\n[COURSE MODIFICATION]")
             print(f"\nCourse: {self.course_id} - {self.course_name}")
             self.print_sections() # show sections in current course
             self.print_commands()
@@ -207,7 +208,7 @@ class Database:
     # INTERFACE METHOD
     def interface(self):
         while True:
-            print() # prints newline for readability 
+            print("\n[MAIN MENU]") # prints newline for readability 
             self.print_courses() # show user added courses
             self.print_commands() # show user available commands
             try:
