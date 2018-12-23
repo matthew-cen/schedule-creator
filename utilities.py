@@ -8,3 +8,13 @@ def parse_time(time_int): # parses time passed as integer as minutes since 00:00
         return parsed_int
     else:
         raise IndexError
+# Peforms command validation for commands of alphanumeric commands.
+def parse_command(command_str, valid_comms):
+    """
+    valid_comms: Collection of valid commands
+    """
+    command_str = command_str.strip()
+    if command_str in valid_comms:
+            return command_str
+    else:
+        raise ValueError
