@@ -1,9 +1,10 @@
 class Section:
-    timeslots = []
+    timeslot = ()
+    days = ()
     def __init__(self, section_id):
         self.section_id = section_id                                                            
     def add_time_slot(self, timeLow, timeHigh): 
-        self.timeslots.append((timeLow, timeHigh))
+        self.timeslot.extend((timeLow, timeHigh))
 
 class Course:
     # FIELDS
@@ -23,8 +24,23 @@ class Course:
         pass
     # INTERFACE
     def interface(self):
-        self.print_sections(self) # show sections in current course
-        self.print_commands(self)
+        while True:
+            self.print_sections(self) # show sections in current course
+            self.print_commands(self)
+
+            try:
+                user_res = int(input("Enter a command via the command number: "))
+                # Validate input as a number 
+                if user_res == 1:
+                    self.add_section()
+                elif user_res == 2:
+                    user_selected_course = input("Please enter the course number you want to modify: ")
+                    self.modify_section(user_selected_course)
+                elif user_res == 3:
+                    user_selected_course = input("Please enter the course number you want to remove: ")
+                    self.remove_section(user_selected_course)
+            except ValueError:
+                print("[ERROR] Invalid command. Please enter a number between 1 and 3")
     # UTILITY METHODS
     def __repr__(self):
         print("Section ID: ", self.course_num, "\n")
@@ -36,6 +52,8 @@ class Course:
         print("1) Add a new section")
         print("2) Modify a section")
         print("3) Remove a section")
+        print("4) Return to main menu")
+
     @staticmethod
     def print_sections(self):
         print(f"Number of Sections: {len(self.sections)}")
@@ -87,6 +105,10 @@ class Database:
             print(f"Successfully removed the following course: {course_num}")
         except KeyError:
             print("[ERROR] The provided course number does not exist:" + course_num)
+    
+    @staticmethod
+    def gen_schedules(self):
+        pass
     # INTERFACE METHOD
     def interface(self):
         while True:
@@ -113,6 +135,7 @@ class Database:
         print("1) Add a new course")
         print("2) Modify a course")
         print("3) Remove a course")
+        print("4) Generate Valid Schedules")
     @staticmethod
     def print_courses(self):
         print(f"Number of Courses: {len(self.courses)}")
