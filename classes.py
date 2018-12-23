@@ -1,11 +1,8 @@
+# TODO: Implement modification logic
 class Section:
-    timeslot = ()
-    days = ()
-    def __init__(self, section_id):
-        self.section_id = section_id                                                            
-    def add_time_slot(self, timeLow, timeHigh): 
-        self.timeslot.extend((timeLow, timeHigh))
-
+    def __init__(self, time_start_end, days_lst):
+        self.timeslot = time_start_end
+        self.days = days_lst
 class Course:
     # FIELDS
     sections = {}
@@ -16,12 +13,30 @@ class Course:
         self.course_name = course_name
     # COMMAND METHODs
     def add_section(self):        
-        # self.sections.append(section) 
-        pass
+        section_id = input("Please enter the section ID: ")
+        time_start = int(input("Please enter the start time of the section as minutes since 12AM: "))
+        time_end = int(input("Please enter the end time of the section as minutes since 12AM: "))
+        section_days = []
+        while True:
+            day_res = input("Please enter the day of the week the this section takes place: ")
+            # TODO: Day and time validation
+            section_days.append(day_res)
+            user_res = input("Do you want to add another day for this section? (Y/N): ").upper()
+            if user_res == "N":
+                break
+            elif user_res != "Y":
+                print("[ERROR] Invalid command. Please try again") 
+        self.sections[section_id] = Section((time_start, time_end), section_days)
     def modify_section(self, section_id):
-        pass
+        try:
+            pass
+        except ValueError:
+            print(f"The following section does not exist: {section_id}")
     def remove_section(self, section_id):
-        pass
+        try:
+            self.sections.pop(section_id)
+        except ValueError:
+            print(f"The following section does not exist: {section_id}")
     # INTERFACE
     def interface(self):
         while True:
@@ -94,8 +109,6 @@ class Database:
         Command Number : 2
         """
         print(f"Selected the following course for modification: {course_num}")
-        pass
-
     def remove_course(self, course_num):
         """
         Command Number : 3
