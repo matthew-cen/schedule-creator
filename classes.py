@@ -42,7 +42,9 @@ class Section:
                 self.timeslot = (time_start, time_end)
                 break
             except ValueError:
-                print("You provided an invalid input, please try again.")
+                print("You provided an invalid input, please try again")
+            except IndexError:
+                print("The provided time is out of range")
     def add_day(self):
         while True:
             try:
