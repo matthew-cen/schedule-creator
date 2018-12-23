@@ -1,6 +1,5 @@
 # TODO: Implement modification logic
 # TODO: Generate schedule inferface
-# TODO: Use exists methods
 
 class Section:
     def __init__(self, time_start_end, days_lst):
@@ -11,8 +10,8 @@ class Course:
     sections = {}
     
     # METHODS
-    def __init__(self, course_num, course_name):
-        self.course_num = course_num
+    def __init__(self, course_id, course_name):
+        self.course_id = course_id
         self.course_name = course_name
     # COMMAND METHODs
     def add_section(self):        
@@ -47,9 +46,9 @@ class Course:
     # INTERFACE
     def interface(self):
         while True:
+            print(f"\nCourse: {self.course_id} - {self.course_name}")
             self.print_sections(self) # show sections in current course
             self.print_commands(self)
-
             try:
                 user_res = int(input("Enter a command via the command number: "))
                 # Validate input as a number 
@@ -65,10 +64,10 @@ class Course:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
     # UTILITY METHODS
     def __repr__(self):
-        print("Section ID: ", self.course_num, "\n")
+        print("Section ID: ", self.course_id, "\n")
         print("----------------------------------------")
     def __str__(self):
-        return f"Course #: {self.course_num} Course Name: {self.course_name}"
+        return f"Course #: {self.course_id} Course Name: {self.course_name}"
     @staticmethod
     def print_commands(self):
         print("1) Add a new section")
@@ -103,31 +102,32 @@ class Database:
         """
         Command Number : 1
         """
-        course_num = input("Please enter the course number: ") # asks user to input course num 
+        course_id = input("Please enter the course number: ") # asks user to input course num 
         course_name = input("Please enter the course name: ") # asks user to input course name
-        if self.course_exists(course_num): # checks if the course number already exists
-            print(f"[ERROR] The following course already exists: {course_num}")
+        if self.course_exists(course_id): # checks if the course number already exists
+            print(f"[ERROR] The following course already exists: {course_id}")
         else: 
-            self.courses[course_num] = Course(course_num, course_name) # instantiate new Course object
+            self.courses[course_id] = Course(course_id, course_name) # instantiate new Course object
             print(f"Successfully added the following course: {course_name}")
-    def modify_course(self,course_num):
+    def modify_course(self,course_id):
         """
         Command Number : 2
         """
-        if self.course_exists(course_num):
-            print(f"Selected the following course for modification: {course_num}")
+        if self.course_exists(course_id):
+            print(f"Selected the following course for modification: {course_id}")
+            self.courses[course_id].interface() # Initialize command interface for course
         else:
-            print(f"[ERROR] The provided course number does not exist: {course_num}")
+            print(f"[ERROR] The provided course number does not exist: {course_id}")
 
-    def remove_course(self, course_num):
+    def remove_course(self, course_id):
         """
         Command Number : 3
         """
-        if self.course_exists(course_num):
-            self.courses.pop(course_num) # remove course from database
-            print(f"Successfully removed the following course: {course_num}")
+        if self.course_exists(course_id):
+            self.courses.pop(course_id) # remove course from database
+            print(f"Successfully removed the following course: {course_id}")
         else:
-            print("[ERROR] The provided course number does not exist:" + course_num)
+            print("[ERROR] The provided course number does not exist:" + course_id)
     
     @staticmethod
     def gen_schedules(self):
@@ -166,11 +166,11 @@ class Database:
         # Check if course list is empty
         if len(self.courses):
             counter = 1
-            for course_num in self.courses:
-                print(f"{counter} - {self.courses[course_num]}")
+            for course_id in self.courses:
+                print(f"{counter} - {self.courses[course_id]}")
                 counter += 1
         else:
             print("<<<You have added no courses>>>")
         print("-----------------------------------------------------")
-    def course_exists(self, course_num):
-        return course_num in self.courses.keys()
+    def course_exists(self, course_id):
+        return course_id in self.courses.keys()
