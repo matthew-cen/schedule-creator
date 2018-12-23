@@ -6,14 +6,21 @@ from utilities import parse_day, parse_time, parse_command, parse_command_num
 from exceptions import *
 
 class Section:
+    """
+    The Section class contains the time and days of a course section.
+    It allows for the modification of a section's timeslot and scheduled days
+    """
+    # FIELDS
     timeslot = None
+    # CONSTRUCTOR
     def __init__(self, section_id):
         self.section_id = section_id
         self.timeslot = ()
         self.days = [0,0,0,0,0,0,0] # stores days at bits starting with Sunday
+    # OPERATOR OVERLOADS
     def __str__(self):
         return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
-
+    # INTERFACE
     def interface(self):
         while True:
             print("\n[SECTION MODIFICATION]")
@@ -70,24 +77,37 @@ class Section:
     def remove_all_days(self):
         self.days = [0,0,0,0,0,0,0]
         print("Removed all days for this section")
+
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
+        """
+        Displays valid commands for the Section class 
+        """
         print("1) Change timeslot")
         print("2) Add a day")
         print("3) Remove a day")
         print("4) Remove all days")
         print("5) Return to course interface")  
+
 class Course:
+    """
+    The Course class stores a dictionary of its sections.
+    It is used to add, modify, and remove its contained sections 
+    """
     # FIELDS
     sections = {}
-    # METHODS
+    # CONSTRUCTOR
     def __init__(self, course_id, course_name):
         self.course_id = course_id
         self.course_name = course_name
         
     # COMMAND METHODs
     def add_section(self):        
+        """
+        Add section to Course
+        Command Number: 1
+        """
         section_id = input("Please enter the section ID: ")
         if self.section_exists(section_id):
             print(f"[ERROR] The following section already exists: {section_id}")
@@ -108,6 +128,10 @@ class Course:
                     print("[ERROR] Invalid command. Please try again") 
 
     def modify_section(self):
+        """
+        Brings user to section modification menu
+        Command Number: 2
+        """
         user_sel_section = input("Please enter the section ID you want to modify: ")
         if self.section_exists(user_sel_section):
             self.sections[user_sel_section].interface()
@@ -115,6 +139,10 @@ class Course:
             print(f"The following section does not exist: {user_sel_section}")
 
     def remove_section(self):
+        """
+        Remove section from Course
+        Command Number: 3
+        """
         user_selected_course = input("Please enter the section ID you want to remove: ")
         if self.section_exists(user_selected_course):
             self.sections.pop(user_selected_course)
@@ -152,12 +180,18 @@ class Course:
 
     @staticmethod
     def print_commands():
+        """
+        Displays valid commands for the Course class 
+        """
         print("1) Add a new section")
         print("2) Modify a section")
         print("3) Remove a section")
         print("4) Return to main menu")
 
     def print_sections(self):
+        """
+        Displays the sections contained by the Course class as a list
+        """
         print(f"Number of Sections: {len(self.sections)}")
         print("-----------------------------------------------------")
         # Check if course list is empty
@@ -175,7 +209,9 @@ class Course:
 
 class Database:
     """
-    pseudo-database stored as dictionary
+    The Database class is pseudo-database of courses stored as a dictionary
+
+    It is used to add, modify, and remove its contained courses 
     """
     # FIELDS
     courses = {}
@@ -183,6 +219,7 @@ class Database:
     # COMMAND METHODS
     def add_course(self):
         """
+        Adds course to Database
         Command Number : 1
         """
         course_id = input("Please enter the course number: ") # asks user to input course num 
@@ -195,6 +232,7 @@ class Database:
 
     def modify_course(self,course_id):
         """
+        Brings user to Course modification menu
         Command Number : 2
         """
         if self.course_exists(course_id):
@@ -205,6 +243,7 @@ class Database:
 
     def remove_course(self, course_id):
         """
+        Removes course from Database
         Command Number : 3
         """
         if self.course_exists(course_id):
@@ -241,12 +280,18 @@ class Database:
     # UTILITY METHODS
     @staticmethod # function decorator for a static method (python's version of const) 
     def print_commands():
+        """
+        Displays valid commands for the Database class 
+        """
         print("1) Add a new course")
         print("2) Modify a course")
         print("3) Remove a course")
         print("4) Generate Valid Schedules")
 
     def print_courses(self):
+        """
+        Displays the courses contained by the Database class as a list
+        """
         print(f"Number of Courses: {len(self.courses)}")
         print("-----------------------------------------------------")
         # Check if course list is empty
