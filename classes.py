@@ -3,6 +3,7 @@
 # TODO: Default values
 # TODO: Use datetime module for time handling
 from utilities import parse_day, parse_time
+from exceptions import *
 
 class Section:
     timeslot = None
@@ -44,7 +45,9 @@ class Section:
             except ValueError:
                 print("You provided an invalid input, please try again")
             except IndexError:
-                print("The provided time is out of range")
+                print("The provided time is out of range, please try again")
+            except EndBeforeStartTimeException:
+                print("The provided end time is before the start time, please try again")
     def add_day(self):
         while True:
             try:
