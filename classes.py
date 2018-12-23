@@ -40,6 +40,8 @@ class Section:
             try:
                 time_start = parse_time(input("Please enter the START time of the section as minutes since 12AM: "))
                 time_end = parse_time(input("Please enter the END time of the section as minutes since 12AM: "))
+                if time_end < time_start:
+                    raise EndBeforeStartTimeException
                 self.timeslot = (time_start, time_end)
                 break
             except ValueError:
