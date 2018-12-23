@@ -1,7 +1,7 @@
 # TODO: Implement modification/validation logic
 # TODO: Generate schedule inferface
 # TODO: Default values
-
+from utilities import parse_day
 
 class Section:
     timeslot = None
@@ -42,8 +42,12 @@ class Section:
             except:
                 print("You provided an invalid input, please try again.")
     def add_day(self):
+        while True:
+            try:
                 user_day_res = parse_day(input("Please enter the day of the week the this section takes place: "))
                 self.days[user_day_res] = 1
+            except ValueError:
+                print("You provided an invalid input, please try again.")
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
