@@ -13,7 +13,8 @@ class Section:
     # FIELDS
     timeslot = None
     # CONSTRUCTOR
-    def __init__(self, section_id):
+    def __init__(self, course, section_id):
+        self.course = course
         self.section_id = section_id
         self.timeslot = ()
         self.days = [0,0,0,0,0,0,0] # stores days at bits starting with Sunday
@@ -113,7 +114,7 @@ class Course:
             print(f"[ERROR] The following section already exists: {section_id}")
             return
         else:
-            self.sections[section_id] = Section(section_id) # instantiate new section 
+            self.sections[section_id] = Section(self.course_id, section_id) # instantiate new section 
             
             self.sections[section_id].set_timeslot()
             # Loop to allow user to add multiple days at once
