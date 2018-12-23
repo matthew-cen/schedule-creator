@@ -10,8 +10,24 @@ class Section:
         return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
 
     def interface(self):
-        print(self)
-        self.print_commands()
+        while True:
+            print(self)
+            self.print_commands()
+            try:
+            user_res = int(input("Enter a command via the command number: "))
+            # Validate input as a number 
+            if user_res == 1:
+                self.change_timeslot()
+            elif user_res == 2:
+                self.add_day(user_selected_course)
+            elif user_res == 3:
+                self.remove_day(user_selected_course)
+            elif user_res == 4:
+                self.remove_all_days(user_selected_course)
+            elif user_res == 5: # Exit interface for Section
+                break
+            except ValueError:
+                print("[ERROR] Invalid command. Please enter a number between 1 and 5")
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
