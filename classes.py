@@ -9,10 +9,12 @@ class Section:
     def __str__(self):
         return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
 
-    
+    def interface(self):
+        print(self)
+        self.print_commands()
     # UTILITY METHODS
     @staticmethod 
-    def print_commands(self):
+    def print_commands():
         print("1) Change timeslot")
         print("2) Add a day")
         print("3) Remove a day")
