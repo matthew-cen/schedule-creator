@@ -47,7 +47,7 @@ class Section:
             try:
                 user_day_res = parse_day(input("Please enter the day you want to add: "))
                 self.days[user_day_res] = 1
-                breal
+                break
             except ValueError:
                 print("You provided an invalid input, please try again.")
     def remove_day(self):
@@ -58,6 +58,9 @@ class Section:
                 break
             except ValueError:
                 print("You provided an invalid input, please try again.")
+    def remove_all_days(self):
+        self.days = [0,0,0,0,0,0,0]
+        print("Removed all days for this section")
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
