@@ -7,7 +7,7 @@ class Section:
         self.timeslot = time_start_end
         self.days = days_lst #TODO: change to use binary string?
     def __str__(self):
-        return f"Section ID {self.section_id} Time: {self.timeslot} Days: {self.days}"    
+        return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"    
 class Course:
     # FIELDS
     sections = {}
