@@ -108,7 +108,8 @@ class Course:
 
     def modify_section(self, section_id):
         if self.section_exists(section_id):
-            pass
+            user_sel_section = input("Please enter the section ID you want to modify: ")
+            self.sections[user_sel_section].interface()
         else:
             print(f"The following section does not exist: {section_id}")
 
@@ -122,7 +123,7 @@ class Course:
     def interface(self):
         while True:
             print("\n[COURSE MODIFICATION]")
-            print(f"\nCourse: {self.course_id} - {self.course_name}")
+            print(f"Course: {self.course_id} - {self.course_name}")
             self.print_sections() # show sections in current course
             self.print_commands()
             try:
@@ -131,10 +132,10 @@ class Course:
                 if user_res == 1:
                     self.add_section()
                 elif user_res == 2:
-                    user_selected_course = input("Please enter the course number you want to modify: ")
+                    user_selected_course = input("Please enter the section ID you want to modify: ")
                     self.modify_section(user_selected_course)
                 elif user_res == 3:
-                    user_selected_course = input("Please enter the course number you want to remove: ")
+                    user_selected_course = input("Please enter the section ID you want to remove: ")
                     self.remove_section(user_selected_course)
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
