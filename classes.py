@@ -1,4 +1,4 @@
-# TODO: Implement modification logic
+# TODO: Implement modification/validation logic
 # TODO: Generate schedule inferface
 
 class Section:
@@ -19,7 +19,7 @@ class Section:
                 user_res = int(input("Enter a command via the command number: "))
                 # Validate input as a number 
                 if user_res == 1:
-                    self.change_timeslot()
+                    self.set_timeslot()
                 elif user_res == 2:
                     self.add_day(day_num)
                 elif user_res == 3:
@@ -53,8 +53,12 @@ class Course:
             print(f"[ERROR] The following section already exists: {section_id}")
             return
         else:
-            time_start = int(input("Please enter the start time of the section as minutes since 12AM: "))
-            time_end = int(input("Please enter the end time of the section as minutes since 12AM: "))
+            self.sections[section_id] = Section(section_id) # instantiate new section 
+            
+            # Timeslot Setting
+            time_start = int(input("Please enter the START time of the section as minutes since 12AM: "))
+            time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
+            
             section_days = []
             while True:
                 day_res = input("Please enter the day of the week the this section takes place: ")
@@ -65,7 +69,6 @@ class Course:
                     break
                 elif user_res != "Y":
                     print("[ERROR] Invalid command. Please try again") 
-            self.sections[section_id] = Section(section_id)
 
     def modify_section(self, section_id):
         if self.section_exists(section_id):
