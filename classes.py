@@ -2,10 +2,12 @@
 # TODO: Generate schedule inferface
 
 class Section:
-    def __init__(self, section_id,time_start_end, days_lst):
+    timeslot = None
+    def __init__(self, section_id):
         self.section_id = section_id
-        self.timeslot = time_start_end
-        self.days = days_lst #TODO: change to use binary string?
+        self.timeslot = ()
+        self.days = []
+        # self.days = days_lst #TODO: change to use binary string?
     def __str__(self):
         return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
 
@@ -63,7 +65,7 @@ class Course:
                     break
                 elif user_res != "Y":
                     print("[ERROR] Invalid command. Please try again") 
-            self.sections[section_id] = Section(section_id, (time_start, time_end), section_days)
+            self.sections[section_id] = Section(section_id)
 
     def modify_section(self, section_id):
         if self.section_exists(section_id):
