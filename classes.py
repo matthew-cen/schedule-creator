@@ -1,29 +1,40 @@
 # TODO: Implement modification/validation logic
 # TODO: Generate schedule inferface
+# TODO: Default values
+# TODO: Use datetime module for time handling
+from utilities import parse_day, parse_time, parse_command, parse_command_num
+from exceptions import *
 
 class Section:
+    """
+    The Section class contains the time and days of a course section.
+    It allows for the modification of a section's timeslot and scheduled days
+    """
+    # FIELDS
     timeslot = None
+    # CONSTRUCTOR
     def __init__(self, section_id):
         self.section_id = section_id
         self.timeslot = ()
-        self.days = []
-        # self.days = days_lst #TODO: change to use binary string?
+        self.days = [0,0,0,0,0,0,0] # stores days at bits starting with Sunday
+    # OPERATOR OVERLOADS
     def __str__(self):
         return f"Section ID: {self.section_id} Time: {self.timeslot} Days: {self.days}"  
-
+    # INTERFACE
     def interface(self):
         while True:
+            print("\n[SECTION MODIFICATION]")
             print(self)
             self.print_commands()
             try:
-                user_res = int(input("Enter a command via the command number: "))
+                user_res = parse_command_num(input("Enter a command via the command number: "), 5)
                 # Validate input as a number 
                 if user_res == 1:
                     self.set_timeslot()
                 elif user_res == 2:
-                    self.add_day(day_num)
+                    self.add_day()
                 elif user_res == 3:
-                    self.remove_day(day_num)
+                    self.remove_day()
                 elif user_res == 4:
                     self.remove_all_days()
                 elif user_res == 5: # Exit interface for Section
@@ -35,29 +46,68 @@ class Section:
     def set_timeslot(self):
         while True:
             try:
-                time_start = int(input("Please enter the START time of the section as minutes since 12AM: "))
-                time_end = int(input("Please enter the END time of the section as minutes since 12AM: "))
+                time_start = parse_time(input("Please enter the START time of the section as minutes since 12AM: "))
+                time_end = parse_time(input("Please enter the END time of the section as minutes since 12AM: "))
+                if time_end < time_start:
+                    raise EndBeforeStartTimeException
                 self.timeslot = (time_start, time_end)
-            except:
+                break
+            except ValueError:
+                print("You provided an invalid input, please try again")
+            except IndexError:
+                print("The provided time is out of range, please try again")
+            except EndBeforeStartTimeException:
+                print("The provided end time is before the start time, please try again")
+    def add_day(self):
+        while True:
+            try:
+                user_day_res = parse_day(input("Please enter the day you want to add: "))
+                self.days[user_day_res] = 1
+                break
+            except ValueError:
                 print("You provided an invalid input, please try again.")
+    def remove_day(self):
+        while True:
+            try:
+                user_day_res = parse_day(input("Please enter the day you want to remove: "))
+                self.days[user_day_res] = 0
+                break
+            except ValueError:
+                print("You provided an invalid input, please try again.")
+    def remove_all_days(self):
+        self.days = [0,0,0,0,0,0,0]
+        print("Removed all days for this section")
+
     # UTILITY METHODS
     @staticmethod 
     def print_commands():
+        """
+        Displays valid commands for the Section class 
+        """
         print("1) Change timeslot")
         print("2) Add a day")
         print("3) Remove a day")
         print("4) Remove all days")
         print("5) Return to course interface")  
+
 class Course:
+    """
+    The Course class stores a dictionary of its sections.
+    It is used to add, modify, and remove its contained sections 
+    """
     # FIELDS
     sections = {}
-    # METHODS
+    # CONSTRUCTOR
     def __init__(self, course_id, course_name):
         self.course_id = course_id
         self.course_name = course_name
         
     # COMMAND METHODs
     def add_section(self):        
+        """
+        Add section to Course
+        Command Number: 1
+        """
         section_id = input("Please enter the section ID: ")
         if self.section_exists(section_id):
             print(f"[ERROR] The following section already exists: {section_id}")
@@ -66,45 +116,57 @@ class Course:
             self.sections[section_id] = Section(section_id) # instantiate new section 
             
             self.sections[section_id].set_timeslot()
+            # Loop to allow user to add multiple days at once
             while True:
-                day_res = input("Please enter the day of the week the this section takes place: ")
                 # TODO: Day and time validation
-                section_days.append(day_res)
+                # TODO: Allow user to input multiple days in one input string
+                self.sections[section_id].add_day()
                 user_res = input("Do you want to add another day for this section? (Y/N): ").upper()
                 if user_res == "N":
                     break
                 elif user_res != "Y":
                     print("[ERROR] Invalid command. Please try again") 
 
-    def modify_section(self, section_id):
-        if self.section_exists(section_id):
-            pass
+    def modify_section(self):
+        """
+        Brings user to section modification menu
+        Command Number: 2
+        """
+        user_sel_section = input("Please enter the section ID you want to modify: ")
+        if self.section_exists(user_sel_section):
+            self.sections[user_sel_section].interface()
         else:
-            print(f"The following section does not exist: {section_id}")
+            print(f"The following section does not exist: {user_sel_section}")
 
-    def remove_section(self, section_id):
-        if self.section_exists(section_id):
-            self.sections.pop(section_id)
+    def remove_section(self):
+        """
+        Remove section from Course
+        Command Number: 3
+        """
+        user_selected_course = input("Please enter the section ID you want to remove: ")
+        if self.section_exists(user_selected_course):
+            self.sections.pop(user_selected_course)
         else:
-            print(f"The following section does not exist: {section_id}")
+            print(f"The following section does not exist: {user_selected_course}")
 
     # INTERFACE
     def interface(self):
         while True:
-            print(f"\nCourse: {self.course_id} - {self.course_name}")
+            print("\n[COURSE MODIFICATION]")
+            print(f"Course: {self.course_id} - {self.course_name}")
             self.print_sections() # show sections in current course
             self.print_commands()
             try:
-                user_res = int(input("Enter a command via the command number: "))
+                user_res = parse_command_num(input("Enter a command via the command number: "), 4)
                 # Validate input as a number 
                 if user_res == 1:
                     self.add_section()
                 elif user_res == 2:
-                    user_selected_course = input("Please enter the course number you want to modify: ")
-                    self.modify_section(user_selected_course)
+                    self.modify_section()
                 elif user_res == 3:
-                    user_selected_course = input("Please enter the course number you want to remove: ")
-                    self.remove_section(user_selected_course)
+                    self.remove_section()
+                elif user_res == 4:
+                    break
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
 
@@ -118,12 +180,18 @@ class Course:
 
     @staticmethod
     def print_commands():
+        """
+        Displays valid commands for the Course class 
+        """
         print("1) Add a new section")
         print("2) Modify a section")
         print("3) Remove a section")
         print("4) Return to main menu")
 
     def print_sections(self):
+        """
+        Displays the sections contained by the Course class as a list
+        """
         print(f"Number of Sections: {len(self.sections)}")
         print("-----------------------------------------------------")
         # Check if course list is empty
@@ -141,7 +209,9 @@ class Course:
 
 class Database:
     """
-    pseudo-database stored as dictionary
+    The Database class is pseudo-database of courses stored as a dictionary
+
+    It is used to add, modify, and remove its contained courses 
     """
     # FIELDS
     courses = {}
@@ -149,6 +219,7 @@ class Database:
     # COMMAND METHODS
     def add_course(self):
         """
+        Adds course to Database
         Command Number : 1
         """
         course_id = input("Please enter the course number: ") # asks user to input course num 
@@ -161,6 +232,7 @@ class Database:
 
     def modify_course(self,course_id):
         """
+        Brings user to Course modification menu
         Command Number : 2
         """
         if self.course_exists(course_id):
@@ -171,6 +243,7 @@ class Database:
 
     def remove_course(self, course_id):
         """
+        Removes course from Database
         Command Number : 3
         """
         if self.course_exists(course_id):
@@ -179,18 +252,17 @@ class Database:
         else:
             print("[ERROR] The provided course number does not exist:" + course_id)
     
-    @staticmethod
     def gen_schedules(self):
         pass
         
     # INTERFACE METHOD
     def interface(self):
         while True:
-            print() # prints newline for readability 
+            print("\n[MAIN MENU]") # prints newline for readability 
             self.print_courses() # show user added courses
             self.print_commands() # show user available commands
             try:
-                user_res = int(input("Enter a command via the command number: "))
+                user_res = parse_command_num(input("Enter a command via the command number: "), 4)
                 # Validate input as a number 
                 if user_res == 1:
                     self.add_course()
@@ -200,18 +272,26 @@ class Database:
                 elif user_res == 3:
                     user_selected_course = input("Please enter the course number you want to remove: ")
                     self.remove_course(user_selected_course)
+                elif user_res == 4:
+                    self.gen_schedules()
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
 
     # UTILITY METHODS
     @staticmethod # function decorator for a static method (python's version of const) 
     def print_commands():
+        """
+        Displays valid commands for the Database class 
+        """
         print("1) Add a new course")
         print("2) Modify a course")
         print("3) Remove a course")
         print("4) Generate Valid Schedules")
 
     def print_courses(self):
+        """
+        Displays the courses contained by the Database class as a list
+        """
         print(f"Number of Courses: {len(self.courses)}")
         print("-----------------------------------------------------")
         # Check if course list is empty
