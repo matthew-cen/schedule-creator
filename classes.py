@@ -201,7 +201,6 @@ class Database:
         else:
             print("[ERROR] The provided course number does not exist:" + course_id)
     
-    @staticmethod
     def gen_schedules(self):
         pass
         
