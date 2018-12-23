@@ -11,12 +11,11 @@ class Section:
 class Course:
     # FIELDS
     sections = {}
-    
     # METHODS
     def __init__(self, course_id, course_name):
         self.course_id = course_id
         self.course_name = course_name
-
+        
     # COMMAND METHODs
     def add_section(self):        
         section_id = input("Please enter the section ID: ")
