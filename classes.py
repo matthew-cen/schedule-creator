@@ -16,6 +16,7 @@ class Section:
 
     def interface(self):
         while True:
+            print("\n[SECTION MODIFICATION]")
             print(self)
             self.print_commands()
             try:
@@ -106,18 +107,19 @@ class Course:
                 elif user_res != "Y":
                     print("[ERROR] Invalid command. Please try again") 
 
-    def modify_section(self, section_id):
-        if self.section_exists(section_id):
-            user_sel_section = input("Please enter the section ID you want to modify: ")
+    def modify_section(self):
+        user_sel_section = input("Please enter the section ID you want to modify: ")
+        if self.section_exists(user_sel_section):
             self.sections[user_sel_section].interface()
         else:
-            print(f"The following section does not exist: {section_id}")
+            print(f"The following section does not exist: {user_sel_section}")
 
-    def remove_section(self, section_id):
-        if self.section_exists(section_id):
-            self.sections.pop(section_id)
+    def remove_section(self):
+        user_selected_course = input("Please enter the section ID you want to remove: ")
+        if self.section_exists(user_selected_course):
+            self.sections.pop(user_selected_course)
         else:
-            print(f"The following section does not exist: {section_id}")
+            print(f"The following section does not exist: {user_selected_course}")
 
     # INTERFACE
     def interface(self):
@@ -132,11 +134,9 @@ class Course:
                 if user_res == 1:
                     self.add_section()
                 elif user_res == 2:
-                    user_selected_course = input("Please enter the section ID you want to modify: ")
-                    self.modify_section(user_selected_course)
+                    self.modify_section()
                 elif user_res == 3:
-                    user_selected_course = input("Please enter the section ID you want to remove: ")
-                    self.remove_section(user_selected_course)
+                    self.remove_section()
             except ValueError:
                 print("[ERROR] Invalid command. Please enter a number between 1 and 3")
 
