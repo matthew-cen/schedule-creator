@@ -10,8 +10,6 @@ class Section:
     The Section class contains the time and days of a course section.
     It allows for the modification of a section's timeslot and scheduled days
     """
-    # FIELDS
-    timeslot = None
     # CONSTRUCTOR
     def __init__(self, course, section_id):
         self.course = course
@@ -96,12 +94,11 @@ class Course:
     The Course class stores a dictionary of its sections.
     It is used to add, modify, and remove its contained sections 
     """
-    # FIELDS
-    sections = {}
     # CONSTRUCTOR
     def __init__(self, course_id, course_name):
         self.course_id = course_id
         self.course_name = course_name
+        self.sections = {}
         
     # COMMAND METHODs
     def add_section(self):        
@@ -114,7 +111,7 @@ class Course:
             print(f"[ERROR] The following section already exists: {section_id}")
             return
         else:
-            self.sections[section_id] = Section(self.course_id, section_id) # instantiate new section 
+            self.sections[section_id] = Section(self, section_id) # instantiate new section 
             
             self.sections[section_id].set_timeslot()
             # Loop to allow user to add multiple days at once
@@ -214,8 +211,8 @@ class Database:
 
     It is used to add, modify, and remove its contained courses 
     """
-    # FIELDS
-    courses = {}
+    def __init__(self):
+        self.courses = {}
 
     # COMMAND METHODS
     def add_course(self):
@@ -254,8 +251,8 @@ class Database:
             print("[ERROR] The provided course number does not exist:" + course_id)
     
     def gen_schedules(self):
-        pass
-        
+        x = [tuple(self.courses[course].sections.values()) for course in self.courses] 
+        print(x)
     # INTERFACE METHOD
     def interface(self):
         while True:
