@@ -14,4 +14,5 @@ def main():
     # Initialize main user interface
     database.interface()
 
-main()
+if __name__ == "__main__":
+    main()
