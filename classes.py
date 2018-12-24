@@ -2,8 +2,10 @@
 # TODO: Generate schedule inferface
 # TODO: Default values
 # TODO: Use datetime module for time handling
+# TODO: KeyError for days and empty input
 from utilities import parse_day, parse_time, parse_command, parse_command_num
 from exceptions import *
+from schedule import create_schedule
 
 class Section:
     """
@@ -251,8 +253,13 @@ class Database:
             print("[ERROR] The provided course number does not exist:" + course_id)
     
     def gen_schedules(self):
-        x = [tuple(self.courses[course].sections.values()) for course in self.courses] 
-        print(x)
+        print("TYe")
+        section_pools = [tuple(self.courses[course].sections.values()) for course in self.courses] 
+        print("SECTION POOLS", section_pools)
+        valid_schedules = create_schedule(section_pools)
+        print("VALID SCHEDULES", valid_schedules)
+        for schedule in valid_schedules:
+            print(schedule)
     # INTERFACE METHOD
     def interface(self):
         while True:
