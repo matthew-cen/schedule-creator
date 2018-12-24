@@ -65,7 +65,7 @@ class Section:
                 user_day_res = parse_day(input("Please enter the day you want to add: "))
                 self.days[user_day_res] = 1
                 break
-            except ValueError:
+            except:
                 print("You provided an invalid input, please try again.")
     def remove_day(self):
         while True:
@@ -73,7 +73,7 @@ class Section:
                 user_day_res = parse_day(input("Please enter the day you want to remove: "))
                 self.days[user_day_res] = 0
                 break
-            except ValueError:
+            except:
                 print("You provided an invalid input, please try again.")
     def remove_all_days(self):
         self.days = [0,0,0,0,0,0,0]
