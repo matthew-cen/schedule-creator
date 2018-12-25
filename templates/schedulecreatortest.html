@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is the frame of the schedule creator </title>
+	<meta charset="utf-8" />
+	
+</head>
+<body>
+	<form method="post" action="/post_user">
+		<label>Username:</label>
+		<input id="username" name="username" type="text" />
+		<label>Email:</label>
+		<input id="email" name="email" type="text" />
+		<input type="submit" /t>
+	</form>
+	
+	<p>
+	</p>
+	
+	<form method="post" action="/post_course">
+		<label>Course Id:</label>
+		<input id="course_id" name="course_id" type="text" />
+		<label>Course Name:</label>
+		<input id="course_name" name="course_name" type="text" />
+	
+		<label>Section Id:</label>
+		<input id="section_id" name="section_id" type="text" />
+		<label>Time Start</label>
+		<input id="time_start" name="time_start" type="text" />
+		<label>Time End</label>
+		<input id="time_end" name="time_end" type="text" />
+		<label>Days</label>
+		<input id="day" name="day" type="text" />
+		<input type="submit" value="Create Course and Section"/>
+	</form>
+	
+	<p>
+	</p>
+	
+	<form method="post" action="/post_schedules">
+    <input type="submit" value="Create Schedules" />
+	</form>
+
+</body>
+</html>

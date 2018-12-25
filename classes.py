@@ -6,17 +6,46 @@
 from utilities import parse_day, parse_time, parse_command, parse_command_num
 from exceptions import *
 from schedule import create_schedule
+from backend import *
 
-class Section:
+db.metadata.clear() # dunno if we need this, apparently clears table every time run file
+
+class User(db.Model):
+    """"
+    Generic User database class, ripped from the interwebs
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(80), unique=True)
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
+class Section(db.Model):
     """
     The Section class contains the time and days of a course section.
     It allows for the modification of a section's timeslot and scheduled days
     """
+    __tablename__ = 'sections'
+    id = db.Column(db.Integer, primary_key=True)
+    section_id = db.Column(db.String(80), unique=False)
+    time_start = db.Column(db.Integer, unique=False)
+    time_end = db.Column(db.Integer, unique=False)
+    day = db.Column(db.PickleType, unique=False)
+    section_course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+
     # CONSTRUCTOR
-    def __init__(self, course, section_id):
+    def __init__(self, course, section_id, time_start=-1, time_end=-1, day="0"):
         self.course = course
         self.section_id = section_id
-        self.timeslot = ()
+        self.time_start = time_start  # need to initialize this to save to table
+        self.time_end = time_end  # this too
+        self.timeslot = (time_start, time_end)
+        self.day = day # this is just testing for database
         self.days = [0,0,0,0,0,0,0] # stores days at bits starting with Sunday
     # OPERATOR OVERLOADS
     def __str__(self):
@@ -91,11 +120,18 @@ class Section:
         print("4) Remove all days")
         print("5) Return to course interface")  
 
-class Course:
+
+class Course(db.Model):
     """
     The Course class stores a dictionary of its sections.
     It is used to add, modify, and remove its contained sections 
     """
+    __tablename__ = "course"
+    id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.String(80), unique=False)
+    course_name = db.Column(db.String(80), unique=False)
+    db_sections = db.relationship("Section", backref="backref_course", lazy=True)
+
     # CONSTRUCTOR
     def __init__(self, course_id, course_name):
         self.course_id = course_id
@@ -206,6 +242,34 @@ class Course:
 
     def section_exists(self, section_id):
         return section_id in self.sections.keys()
+
+
+class Schedules(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+
+    def __init__(self, list_of_schedules):
+        self.list_of_schedules = list_of_schedules
+
+
+# class Sections(db.Model):
+#     """
+#     The Section class contains the time and days of a course section.
+#     It allows for the modification of a section's timeslot and scheduled days
+#     """
+#     __tablename__ = 'sections'
+#     id = db.Column(db.Integer, primary_key=True)
+#     section_id = db.Column(db.String(80), unique=False)
+#     time_start = db.Column(db.Integer, unique=False)
+#     time_end = db.Column(db.Integer, unique=False)
+#     day = db.Column(db.Integer, unique=False)
+#     section_course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+#
+#     def __init__(self, section_id, time_start, time_end, day):
+#         self.section_id = section_id
+#         self.time_start = time_start
+#         self.time_end = time_end
+#         self.day = day
 
 class Database:
     """
