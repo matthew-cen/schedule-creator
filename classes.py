@@ -1,5 +1,4 @@
 # TODO: Implement modification/validation logic
-# TODO: Generate schedule inferface
 # TODO: Default values
 # TODO: Use datetime module for time handling
 # TODO: KeyError for days and empty input
