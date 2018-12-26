@@ -8,7 +8,6 @@ from exceptions import *
 from schedule import create_schedule
 from backend import *
 
-db.metadata.clear() # dunno if we need this, apparently clears table every time run file
 
 class User(db.Model):
     """"
@@ -24,7 +23,6 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-
 class Section(db.Model):
     """
     The Section class contains the time and days of a course section.
@@ -35,7 +33,14 @@ class Section(db.Model):
     section_id = db.Column(db.String(80), unique=False)
     time_start = db.Column(db.Integer, unique=False)
     time_end = db.Column(db.Integer, unique=False)
-    day = db.Column(db.PickleType, unique=False)
+    Monday = db.Column(db.BOOLEAN, unique=False)
+    Tuesday = db.Column(db.BOOLEAN, unique=False)
+    Wednesday = db.Column(db.BOOLEAN, unique=False)
+    Thursday = db.Column(db.BOOLEAN, unique=False)
+    Friday = db.Column(db.BOOLEAN, unique=False)
+    Saturday = db.Column(db.BOOLEAN, unique=False)
+    Sunday = db.Column(db.BOOLEAN, unique=False)
+    db_schedule = db.relationship("DBFinalSectionSelection", backref="backref_schedule", lazy=True)
     section_course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
 
     # CONSTRUCTOR
@@ -46,6 +51,13 @@ class Section(db.Model):
         self.time_end = time_end  # this too
         self.timeslot = (time_start, time_end)
         self.day = day # this is just testing for database
+        self.Monday = False
+        self.Tuesday = False
+        self.Wednesday = False
+        self.Thursday = False
+        self.Friday = False
+        self.Saturday = False
+        self.Sunday = False
         self.days = [0,0,0,0,0,0,0] # stores days at bits starting with Sunday
     # OPERATOR OVERLOADS
     def __str__(self):
@@ -244,32 +256,14 @@ class Course(db.Model):
         return section_id in self.sections.keys()
 
 
-class Schedules(db.Model):
+class DBFinalSectionSelection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    schedule_id = db.Column(db.Integer, unique=False)
+    section_id = db.Column(db.Integer, db.ForeignKey('sections.id'), nullable=False)
 
+    def __init__(self, schedule_id):
+        self.schedule_id = schedule_id
 
-    def __init__(self, list_of_schedules):
-        self.list_of_schedules = list_of_schedules
-
-
-# class Sections(db.Model):
-#     """
-#     The Section class contains the time and days of a course section.
-#     It allows for the modification of a section's timeslot and scheduled days
-#     """
-#     __tablename__ = 'sections'
-#     id = db.Column(db.Integer, primary_key=True)
-#     section_id = db.Column(db.String(80), unique=False)
-#     time_start = db.Column(db.Integer, unique=False)
-#     time_end = db.Column(db.Integer, unique=False)
-#     day = db.Column(db.Integer, unique=False)
-#     section_course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-#
-#     def __init__(self, section_id, time_start, time_end, day):
-#         self.section_id = section_id
-#         self.time_start = time_start
-#         self.time_end = time_end
-#         self.day = day
 
 class Database:
     """
