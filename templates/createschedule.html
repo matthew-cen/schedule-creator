@@ -13,10 +13,8 @@ Create Schedule
         </div>
     </section>
     <div class="container">
-
         <div class="columns">
             <div class="column">
-
                 <nav class="level">
                     <div class="level-item has-text-centered">
                         <div>
@@ -45,105 +43,76 @@ Create Schedule
 
                             </span>Add Course
                         </button>
+                        {% include "createCourseModal.html" %}
                     </div>
-                </nav>
-                <section class=section>
-                    <div class="notification is-primary is-12 box">
-                        <button class="delete"></button>
-                        <div class="columns">
-                            <div class="column is-11">
-                                <p class="title">CS-UY 2134 - Object Oriented
-                                    Programming</p>
-                            </div>
-                            <div class="column is-1">
-                                <button class="button is-white">
-                                    <span class="icon">
-                                        <i class="fas fa-pencil-alt fa-lg"></i>
-                                    </span>
-                                    <span>
-                                        Edit
-                                    </span>
-                                </button>
+                    </nav>
+                    <section class=section>
+                        <div class="notification is-primary is-12 box">
+                            <button class="delete"></button>
+                            <div class="columns">
+                                <div class="column is-11">
+                                    <p class="title">CS-UY 2134 - Object
+                                        Oriented
+                                        Programming</p>
+                                </div>
+                                <div class="column is-1">
+                                    <button class="button is-white">
+                                        <span class="icon">
+                                            <i class="fas fa-pencil-alt fa-lg"></i>
+                                        </span>
+                                        <span>
+                                            Edit
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="notification is-warning is-12 box">
-                        <button class="delete"></button>
-                        <div class="columns">
-                            <div class="column is-11">
-                                <p class="title">MA-UY 2124 - Discrete
-                                    Mathematics</p>
-                            </div>
-                            <div class="column is-1">
-                                <button class="button is-white">
+                        <div class="notification is-warning is-12 box">
+                            <button class="delete"></button>
+                            <div class="columns">
+                                <div class="column is-11">
+                                    <p class="title">MA-UY 2124 - Discrete
+                                        Mathematics</p>
+                                </div>
+                                <div class="column is-1">
+                                    <button class="button is-white">
 
-                                    <span class="icon">
-                                        <i class="fas fa-pencil-alt fa-lg"></i>
-                                    </span>
-                                    <span>
-                                        Edit
-                                    </span>
-                                </button>
+                                        <span class="icon">
+                                            <i class="fas fa-pencil-alt fa-lg"></i>
+                                        </span>
+                                        <span>
+                                            Edit
+                                        </span>
+                                    </button>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="notification is-info is-12 box">
-                        <button class="delete"></button>
-                        <div class="columns">
-                            <div class="column is-11">
-                                <p class="title">CS-UY 1024 - Introduction to
-                                    Programming</p>
-                            </div>
-                            <div class="column is-1">
-                                <button class="button is-white">
+                        <div class="notification is-info is-12 box">
+                            <button class="delete"></button>
+                            <div class="columns">
+                                <div class="column is-11">
+                                    <p class="title">CS-UY 1024 - Introduction
+                                        to
+                                        Programming</p>
+                                </div>
+                                <div class="column is-1">
+                                    <button class="button is-white">
 
-                                    <span class="icon">
-                                        <i class="fas fa-pencil-alt fa-lg"></i>
-                                    </span>
-                                    <span>
-                                        Edit
-                                    </span>
-                                </button>
+                                        <span class="icon">
+                                            <i class="fas fa-pencil-alt fa-lg"></i>
+                                        </span>
+                                        <span>
+                                            Edit
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <!-- <section class="section">
-                    <form method="post" action="/post_course">
-                        <div class="field">
-                            <label class="label">Course ID:</label>
-                            <div class="control">
-                                <input class="input" id="course_id" name="course_id" type="text" />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Course Name:</label>
-                            <div class="control">
-                                <input class="input" id="course_name" name="course_name" type="text" />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Section ID:</label>
-                            <label >Days</label>
-                            <div class="control">
-                                <input class="input" id="day" name="day" type="text" />
-                            </div>
-                        </div>
-                        <div class="control">
-                            <input class="button" type="submit" value="Create Course and Section"/>
-                        </div>
-                    </form>
-                    
-                    <p>
-                    </p>
-                    
-                    <form method="post" action="/post_schedules">
-                        <input class="button" type="submit" value="Create Schedules" />
-                    </form>
-                </section> -->
+                    </section>
+
+                </div>
             </div>
         </div>
-    </div>
-</section>
-{% endblock body %}
+    </section>
+    {% endblock body %}
