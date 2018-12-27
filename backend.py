@@ -1,20 +1,31 @@
+# TODO: Move security information separately
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from classes import *
 from flask import render_template, redirect, request, url_for
 from schedule import create_schedule2
 
+# CONFIGURATION
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:xawds12300@localhost/schedules'
-db = SQLAlchemy(app)
 app.debug = True
 
+# INITIALIZATION
+db = SQLAlchemy(app)
+
+# ROUTES
+"""
+Home root directory
+"""
 @app.route('/')
 def index():
     return render_template("createschedule.html")
     # return render_template("schedulefortest.html") temporarily commented out for web design testing 
 
 
+"""
+Route for user login POST request 
+"""
 @app.route('/post_user', methods=['POST'])
 def post_user():
     user = User(request.form['username'], request.form['email'])
@@ -23,6 +34,9 @@ def post_user():
 
     return redirect(url_for('index'))
 
+"""
+Route for course creation POST request 
+"""
 @app.route('/post_course', methods=["POST"])
 def post_course():
     this_course = Course(request.form['course_id'], request.form['course_name'])
@@ -58,6 +72,9 @@ def post_course():
     return redirect(url_for('index'))
 
 
+"""
+Route for schedule generation POST request 
+"""
 @app.route('/post_schedules', methods=["POST"])
 def post_schedules():
     rows = db.session.query(Course).count()  # gets the number of rows
