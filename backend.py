@@ -14,10 +14,16 @@ app.debug = True
 db = SQLAlchemy(app)
 
 # ROUTES
+<<<<<<< HEAD
 """
 Home root directory
 """
+=======
+>>>>>>> e358f3263e79865b049d8ee13f5d9d24652d7c54
 @app.route('/')
+"""
+Home root directory
+"""
 def index():
     return render_template("createschedule.html")
     # return render_template("schedulefortest.html") temporarily commented out for web design testing 
@@ -27,6 +33,9 @@ def index():
 Route for user login POST request 
 """
 @app.route('/post_user', methods=['POST'])
+"""
+Route for user login POST request 
+"""
 def post_user():
     user = User(request.form['username'], request.form['email'])
     db.session.add(user)
@@ -38,6 +47,9 @@ def post_user():
 Route for course creation POST request 
 """
 @app.route('/post_course', methods=["POST"])
+"""
+Route for course creation POST request 
+"""
 def post_course():
     this_course = Course(request.form['course_id'], request.form['course_name'])
     db.session.add(this_course)
@@ -76,6 +88,9 @@ def post_course():
 Route for schedule generation POST request 
 """
 @app.route('/post_schedules', methods=["POST"])
+"""
+Route for schedule generation POST request 
+"""
 def post_schedules():
     rows = db.session.query(Course).count()  # gets the number of rows
     before_product_sections = []
