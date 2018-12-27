@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}
+Create Schedule 
+{% endblock title %}
+{% block body %}
+
+<form method="post" action="/post_course">
+    <div class="field">
+        <label class="label">Course ID:</label>
+        <div class="control">
+            <input class="input" id="course_id" name="course_id" type="text" />
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Course Name:</label>
+        <div class="control">
+            <input class="input" id="course_name" name="course_name" type="text" />
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Section ID:</label>
+        <label >Days</label>
+        <div class="control">
+            <input class="input" id="day" name="day" type="text" />
+        </div>
+    </div>
+    <div class="control">
+        <input class="button" type="submit" value="Create Course and Section"/>
+    </div>
+</form>
+
+<p>
+</p>
+
+<form method="post" action="/post_schedules">
+<input class="button" type="submit" value="Create Schedules" />
+</form>
+{% endblock body %}
