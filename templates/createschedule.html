@@ -1,38 +1,112 @@
 {% extends "base.html" %}
 {% block title %}
-Create Schedule 
+Create Schedule
 {% endblock title %}
 {% block body %}
+<section>
+    <section class=hero>
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Schedule Creator</h1>
+                <h2 class="subtitle">Courses</h2>
+            </div>
+        </div>
+    </section>
+    <div class="container">
 
-<form method="post" action="/post_course">
-    <div class="field">
-        <label class="label">Course ID:</label>
-        <div class="control">
-            <input class="input" id="course_id" name="course_id" type="text" />
+        <div class="columns">
+            <div class="column">
+
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Courses</p>
+                            <p class="title">5</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Sections</p>
+                            <p class="title">15</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Schedules</p>
+                            <p class="title">N/A</p>
+                        </div>
+                    </div>
+                </nav>
+                <section class=section>
+                    <div class="notification is-primary is-12 box">
+                        <button class="delete"></button>
+                        <div class="columns">
+                            <div class="column is-11">
+                                <p class="title">CS-UY 2134 - Object Oriented Programming</p>
+                            </div>
+                            <div class="column is-1">
+                                <button class="button is-white"><i class="fas fa-pencil-alt fa-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notification is-warning is-12 box">
+                        <button class="delete"></button>
+                        <div class="columns">
+                            <div class="column is-11">
+                                <p class="title">MA-UY 2124 - Discrete Mathematics</p>
+                            </div>
+                            <div class="column is-1">
+                                <button class="button is-white"><i class="fas fa-pencil-alt fa-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notification is-info is-12 box">
+                        <button class="delete"></button>
+                        <div class="columns">
+                            <div class="column is-11">
+                                <p class="title">CS-UY 1024 - Introdution to Programming</p>
+                            </div>
+                            <div class="column is-1">
+                                <button class="button is-white"><i class="fas fa-pencil-alt fa-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- <section class="section">
+                    <form method="post" action="/post_course">
+                        <div class="field">
+                            <label class="label">Course ID:</label>
+                            <div class="control">
+                                <input class="input" id="course_id" name="course_id" type="text" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Course Name:</label>
+                            <div class="control">
+                                <input class="input" id="course_name" name="course_name" type="text" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Section ID:</label>
+                            <label >Days</label>
+                            <div class="control">
+                                <input class="input" id="day" name="day" type="text" />
+                            </div>
+                        </div>
+                        <div class="control">
+                            <input class="button" type="submit" value="Create Course and Section"/>
+                        </div>
+                    </form>
+                    
+                    <p>
+                    </p>
+                    
+                    <form method="post" action="/post_schedules">
+                        <input class="button" type="submit" value="Create Schedules" />
+                    </form>
+                </section> -->
+            </div>
         </div>
     </div>
-    <div class="field">
-        <label class="label">Course Name:</label>
-        <div class="control">
-            <input class="input" id="course_name" name="course_name" type="text" />
-        </div>
-    </div>
-    <div class="field">
-        <label class="label">Section ID:</label>
-        <label >Days</label>
-        <div class="control">
-            <input class="input" id="day" name="day" type="text" />
-        </div>
-    </div>
-    <div class="control">
-        <input class="button" type="submit" value="Create Course and Section"/>
-    </div>
-</form>
-
-<p>
-</p>
-
-<form method="post" action="/post_schedules">
-<input class="button" type="submit" value="Create Schedules" />
-</form>
+</section>
 {% endblock body %}
