@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from classes import *
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, jsonify
 from schedule import create_schedule2
 
 app = Flask(__name__)
@@ -12,6 +12,27 @@ app.debug = True
 @app.route('/')
 def index():
     return render_template("schedulecreatortest.html")
+
+@app.route('/delete_course', methods=['DELETE'])
+def delete_course():
+    delete_course_name = request.form['delete_course_name']
+    delete = Course.query.filter_by(course_name=delete_course_name).first()
+    delete_id = delete.id
+
+    db.session.delete(delete)
+
+    course_sections = Section.query.filter_by(section_course_id=delete_id)
+    for sections in course_sections:
+        db.session.delete(sections)
+
+    db.session.commit()
+
+    return redirect(url_for('index'))
+
+@app.route('/delete_course_id', methods=['DELETE'])
+def delete_course_id():
+    delete_course_id = request.form['delete_course_id']
+    delete = Course.query.filger_by(course_id=delete_course_id)
 
 @app.route('/post_user', methods=['POST'])
 def post_user():
@@ -58,6 +79,10 @@ def post_course():
 
 @app.route('/post_schedules', methods=["POST"])
 def post_schedules():
+    if (db.session.query(DBFinalSectionSelection).count() != 0):
+        last_id = db.session.query(DBFinalSectionSelection).order_by(DBFinalSectionSelection.id.desc()).first().schedule_id + 1
+    else:
+        last_id = 1
     rows = db.session.query(Course).count()  # gets the number of rows
     before_product_sections = []
     for i in range(1, rows+1):
@@ -66,14 +91,15 @@ def post_schedules():
 
     after_product_sections = create_schedule2(before_product_sections) # returns the possible schedule combinations as tuples in a list
 
-    for schedule_id in range(1, len(after_product_sections)+1):  # starts from 1 because it will be stored as id
-        for combinations in after_product_sections:  # loops through the possible combinations of sections
-            for sections in combinations:  # iterates through each section individually
-                new_db_section = DBFinalSectionSelection(schedule_id) # create a new schedule of sections class
-                object_session = db.object_session(sections)  # since the section is already stored in session, need to reference it
-                new_db_section.backref_schedule = sections  # set the the foreign key to the session
-                object_session.add(new_db_section) # adds the new schedules of sections to the session of the section
-                object_session.commit() # commit new object
+    for combinations in after_product_sections:  # loops through the possible combinations of sections
+        for sections in combinations:  # iterates through each section individually
+            new_db_section = DBFinalSectionSelection(last_id) # create a new schedule of sections class
+            # https://stackoverflow.com/questions/24291933/sqlalchemy-object-already-attached-to-session
+            object_session = db.object_session(sections)  # since the section is already stored in session, need to reference it
+            new_db_section.backref_schedule = sections  # set the the foreign key to the session
+            object_session.add(new_db_section) # adds the new schedules of sections to the session of the section
+            object_session.commit() # commit new object
+            last_id += 1 # increments the last id, so the next schedule will have new schedule_id
 
     return redirect(url_for('index'))
 
