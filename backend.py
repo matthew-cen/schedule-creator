@@ -12,6 +12,8 @@ app.debug = True
 @app.route('/')
 def index():
     return render_template("createschedule.html")
+    # return render_template("schedulefortest.html") temporarily commented out for web design testing 
+
 
 @app.route('/post_user', methods=['POST'])
 def post_user():
