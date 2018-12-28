@@ -2,9 +2,6 @@
 
 # IMPORTS
 from classes import Database
-# CONSTANTS
-VALID_DAY_LST = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-
 
 # MAIN
 def main():
