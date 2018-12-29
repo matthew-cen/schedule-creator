@@ -19,7 +19,7 @@ Home root directory
 """
 @app.route('/')
 def index():
-    return render_template("createSchedule.html")
+    return render_template("courseList.html")
     # return render_template("schedulefortest.html") temporarily commented out for web design testing 
 
 @app.route('/delete_course', methods=['DELETE'])
