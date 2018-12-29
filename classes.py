@@ -7,7 +7,6 @@ from exceptions import *
 from schedule import create_schedule
 from backend import *
 
-
 class User(db.Model):
     """"
     Generic User database class, ripped from the interwebs
@@ -368,3 +367,5 @@ class Database:
 
     def course_exists(self, course_id):
         return course_id in self.courses.keys()
+
+db.create_all() #db.create_all() has to be at the end of the classes python file
