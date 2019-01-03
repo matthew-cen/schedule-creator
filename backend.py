@@ -56,7 +56,7 @@ def delete_section():
     return redirect(url_for('index'))
 
 
-@app.route('get_courses', methods=['GET'])
+@app.route('/get_courses', methods=['GET'])
 def get_courses():
     courses_dict = {}
     primary_key = request.form['primary_key']
@@ -66,7 +66,7 @@ def get_courses():
 
     return jsonify(courses_dict)
 
-@app.route('get_sections', methods=['GET'])
+@app.route('/get_sections', methods=['GET'])
 def get_sessions():
     sections_dict = {}
     primary_key = request.form['primary_key']
@@ -76,7 +76,7 @@ def get_sessions():
 
     return jsonify(sections_dict)
 
-@app.route('get_schedules', methods=['GET'])
+@app.route('/get_schedules', methods=['GET'])
 def get_schedules():
     schedules_dict = {}
     primary_key = request.form['primary_key']
