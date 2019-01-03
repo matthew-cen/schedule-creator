@@ -1,9 +1,10 @@
 # TODO: Move security information separately
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from classes import *
 from flask import render_template, redirect, request, url_for, jsonify
 from schedule import create_schedule2
+from flask_restplus import Resource, Api
 
 # CONFIGURATION
 app = Flask(__name__)
@@ -12,6 +13,12 @@ app.debug = True
 
 # INITIALIZATION
 db = SQLAlchemy(app)
+
+# API
+blueprint = Blueprint('api', __name__, url_prefix='/api')
+api = Api(blueprint)
+app.register_blueprint(blueprint)
+
 # ROUTES
 """
 Home root directory
