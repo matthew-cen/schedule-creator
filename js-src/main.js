@@ -5,6 +5,10 @@ function toggleModal() {
 // use DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
 	// Event Listeners
+	// Modal Toggling
+	document.getElementById("addCourseBtn").addEventListener("click", toggleModal)
+	document.querySelector("#createCourseModal header button").addEventListener("click", toggleModal)
+
 	// Custom AJAX handling for form submission
 	let addCourseForm = document.querySelector("form");
 
