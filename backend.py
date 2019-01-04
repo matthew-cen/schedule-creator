@@ -7,7 +7,8 @@ from schedule import create_schedule2
 from flask_restplus import Resource, Api
 
 # CONFIGURATION
-app = Flask(__name__)
+app = Flask(__name__,
+static_folder="./dist")
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:xawds12300@localhost/schedules'
 app.debug = True
 
