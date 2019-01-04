@@ -19,6 +19,12 @@ blueprint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(blueprint)
 app.register_blueprint(blueprint)
 
+# TEST API ROUTE
+@api.route("/hello")
+class hello(Resource):
+    def get(self):
+        return "Hello"
+
 # ROUTES
 """
 Home root directory
