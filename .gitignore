@@ -334,3 +334,5 @@ python-env
 
 test.py
 .vscode
+package.json
+package-lock.json
