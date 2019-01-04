@@ -6,17 +6,17 @@
                 <p class="modal-card-title">Create Course</p>
                 <button class="delete" aria-label="close" onclick="toggleModal()"></button>
             </header>
+            <form>
             <section class="modal-card-body">
                 <section class="section">
-                    <form method="post"
-                        action="/post_course">
                         <div class="field">
                             <label class="label">Course ID:</label>
                             <div class="control">
                                 <input class="input"
                                     id="course_id"
                                     name="course_id"
-                                    type="text" />
+                                    type="text"
+                                    required />
                             </div>
                         </div>
                         <div class="field">
@@ -26,35 +26,18 @@
                                 <input class="input"
                                     id="course_name"
                                     name="course_name"
-                                    type="text" />
+                                    type="text"
+                                    required 
+                                    />
                             </div>
                         </div>
-                        <div class="field">
-                            <label class="label">Section ID:</label>
-                            <label>Days</label>
-                            <div class="control">
-                                <input class="input"
-                                    id="day" name="day"
-                                    type="text" />
-                            </div>
-                        </div>
-                        <div class="control">
-                            <input class="button"
-                                type="submit" value="Create
-                                Course and Section" />
-                        </div>
-                    </form>
-                    <form method="post"
-                        action="/post_schedules">
-                        <input class="button" type="submit"
-                            value="Create Schedules" />
-                    </form>
+                    </section>
                 </section>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success">Add Course</button>
-                <button class="button" onclick="toggleModal()">Cancel</button>
-            </footer>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Add Course</button>
+                    <button class="button" onclick="toggleModal()">Cancel</button>
+                </footer>
+            </form>
         </div>
 </div>
 {% endblock createCourseModal %}
