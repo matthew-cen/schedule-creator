@@ -47,3 +47,26 @@ function getCourse() {
 	// STORE COURSE DATA IN SESSIONSTORAGE
 	// RENDER NEW COURSE COMPONENT
 }
+
+let test = `
+<div class="notification is-primary is-12 box">
+	<button class="delete"></button>
+	<div class="columns">
+		<div class="column is-11">
+			<p class="title">CS-UY 2134 - Object
+				Oriented
+				Programming</p>
+		</div>
+		<div class="column is-1">
+			<button class="button is-white">
+				<span class="icon">
+					<i class="fas fa-pencil-alt fa-lg"></i>
+				</span>
+				<span>
+					Edit
+				</span>
+			</button>
+		</div>
+	</div>
+</div>
+`
