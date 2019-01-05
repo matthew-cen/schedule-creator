@@ -1,7 +1,7 @@
 (() => {
 	// PSEUDO GLOBALS
 	const addCourseForm = document.getElementById("addCourseForm");
-	
+	const courseList = document.getElementById("courseList");
 	function toggleModal() {
 		document.querySelector(".modal").classList.toggle("is-active");
 	}
