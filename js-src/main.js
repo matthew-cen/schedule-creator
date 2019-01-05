@@ -1,6 +1,6 @@
 (() => {
 	// PSEUDO GLOBALS
-	let addCourseForm = document.getElementById("addCourseForm");
+	const addCourseForm = document.getElementById("addCourseForm");
 	
 	function toggleModal() {
 		document.querySelector(".modal").classList.toggle("is-active");
