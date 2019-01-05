@@ -18,39 +18,37 @@
 
 		// Event Listeners
 		// Add Course Modal Toggling
-		addCourseBtn.addEventListener("click", toggleAddCourseModal)
+		addCourseBtn.addEventListener("click", toggleAddCourseModal);
 		addCourseModalCloseBtn.addEventListener("click", toggleAddCourseModal);
 		addCourseCancelBtn.addEventListener("click", toggleAddCourseModal);
 
 		// Form Submit Button
 		addCourseForm.addEventListener("submit", event => {
 			event.preventDefault(); // disable default page refresh behavior on submit
-			addCourse();
 			console.log("Ran Add Course");
 			let addCourseFormData = new FormData(addCourseForm); // create FormData from form element
 			// fetch("/api/hello")
 			// 	.then(res => {
-			// 		console.log(res);
-			// 	})
-			// 	.catch(err => {
-			// 		console.error("An error occurred");
-			// 	});
-			toggleAddCourseModal(); // close modal
+				// 		console.log(res);
+				// 	})
+				// 	.catch(err => {
+					// 		console.error("An error occurred");
+					// 	});
+			addCourse(...addCourseFormData.values());
+			toggleAddCourseModal();
 		});
 
 		// add new course
-		function addCourse() {
+		function addCourse(courseID, courseName) {
 			// SEND DATA TO SERVER FOR VALIDATION
 			// STORE COURSE DATA IN SESSIONSTORAGE
 			// RENDER NEW COURSE COMPONENT
 			const newCourseComponent = `
-			<div class="notification is-primary is-12 box">
+			<div class="notification is-primary is-12 box" courseID="${courseID}">
 			<button class="delete"></button>
 			<div class="columns">
 			<div class="column is-11">
-			<p class="title">CS-UY 2134 - Object
-			Oriented
-			Programming</p>
+			<p class="title">${courseID} - ${courseName}</p>
 			</div>
 			<div class="column is-1">
 			<button class="button is-white">
