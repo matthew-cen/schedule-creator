@@ -1,43 +1,43 @@
 {% block createCourseModal %}
 <div class="modal" id="createCourseModal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Create Course</p>
-                <button class="delete" aria-label="close"></button>
-            </header>
-            <form id="addCourse">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Create Course</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <form id="addCourseForm">
             <section class="modal-card-body">
                 <section class="section">
-                        <div class="field">
-                            <label class="label">Course ID:</label>
-                            <div class="control">
-                                <input class="input"
-                                    id="course_id"
-                                    name="course_id"
-                                    type="text"
-                                    required />
-                            </div>
+                    <div class="field">
+                        <label class="label">Course ID:</label>
+                        <div class="control">
+                            <input class="input"
+                                id="course_id"
+                                name="course_id"
+                                type="text"
+                                required />
                         </div>
-                        <div class="field">
-                            <label class="label">Course
-                                Name:</label>
-                            <div class="control">
-                                <input class="input"
-                                    id="course_name"
-                                    name="course_name"
-                                    type="text"
-                                    required 
-                                    />
-                            </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Course
+                            Name:</label>
+                        <div class="control">
+                            <input class="input"
+                                id="course_name"
+                                name="course_name"
+                                type="text"
+                                required
+                                />
                         </div>
-                    </section>
+                    </div>
                 </section>
-                <footer class="modal-card-foot">
-                    <button class="button is-success">Add Course</button>
-                    <button class="button" onclick="toggleModal()">Cancel</button>
-                </footer>
-            </form>
-        </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success">Add Course</button>
+                <button class="button" onclick="toggleModal()">Cancel</button>
+            </footer>
+        </form>
+    </div>
 </div>
 {% endblock createCourseModal %}
