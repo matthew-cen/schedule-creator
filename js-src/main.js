@@ -43,7 +43,6 @@
 			// SEND DATA TO SERVER FOR VALIDATION
 			// STORE COURSE DATA IN SESSIONSTORAGE
 			// RENDER NEW COURSE COMPONENT
-			courseList.insertAdjacentHTML("beforeend");
 			const newCourseComponent = `
 			<div class="notification is-primary is-12 box">
 			<button class="delete"></button>
@@ -65,6 +64,7 @@
 			</div>
 			</div>
 			</div>`;
+			courseList.insertAdjacentHTML("beforeend", newCourseComponent);
 		}
 		// remove existing course
 		function removeCourse() {
