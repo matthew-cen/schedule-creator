@@ -45,24 +45,30 @@
 			// RENDER NEW COURSE COMPONENT
 			const newCourseComponent = `
 			<div class="notification is-primary is-12 box" data-course_id="${courseID}">
-			<button class="delete"></button>
-			<div class="columns">
-			<div class="column is-11">
-			<p class="title">${courseID} - ${courseName}</p>
-			</div>
-			<div class="column is-1">
-			<button class="button is-white">
-			<span class="icon">
-			<i class="fas fa-pencil-alt fa-lg"></i>
-			</span>
-			<span>
-			Edit
-			</span>
-			</button>
-			</div>
-			</div>
+				<button class="delete"></button>
+				<div class="columns">
+					<div class="column is-11">
+						<p class="title">${courseID} - ${courseName}</p>
+					</div>
+					<div class="column is-1">
+						<button class="button is-white">
+							<span class="icon">
+								<i class="fas fa-pencil-alt fa-lg"></i>
+							</span>
+							<span>
+								Edit
+							</span>
+						</button>
+					</div>
+				</div>
 			</div>`;
 			courseList.insertAdjacentHTML("beforeend", newCourseComponent);
+
+			// Event Listener for Delete Button
+			document.querySelector(`div .notification[data-course_id="${courseID}"`)
+				.addEventListener("click", event => {
+					event.target.parentNode.remove() // removes course component 
+				})
 		}
 		// remove existing course
 		function removeCourse() {
