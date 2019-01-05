@@ -2,28 +2,31 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		const addCourseForm = document.getElementById("addCourseForm");
 		const courseList = document.getElementById("courseList");
-		const createCourseModal = document.getElementById("createCourseModal");
+		const addCourseModal = document.getElementById("createCourseModal");
+		const addCourseBtn = document.getElementById("addCourseBtn");
+		const addCourseModalCloseBtn = document.getElementById(
+			"addCourseCloseModal",
+		);
+		const addCourseCancelBtn = document.getElementById(
+			"addCourseCancelBtn",
+		);
 
 		// UTILITY FUNCTIONS
-		function toggleModal() {
-			createCourseModal.classList.toggle("is-active");
+		function toggleAddCourseModal() {
+			addCourseModal.classList.toggle("is-active");
 		}
 
 		// Event Listeners
-		// Modal Toggling
-		document
-			.getElementById("addCourseBtn")
-			.addEventListener("click", toggleModal);
-		document
-			.querySelector("#createCourseModal header button")
-			.addEventListener("click", toggleModal);
-
-		// Custom AJAX handling for form submission
+		// Add Course Modal Toggling
+		addCourseBtn.addEventListener("click", toggleAddCourseModal)
+		addCourseModalCloseBtn.addEventListener("click", toggleAddCourseModal);
+		addCourseCancelBtn.addEventListener("click", toggleAddCourseModal);
 
 		// Form Submit Button
 		addCourseForm.addEventListener("submit", event => {
 			event.preventDefault(); // disable default page refresh behavior on submit
 			addCourse();
+			console.log("Ran Add Course");
 			let addCourseFormData = new FormData(addCourseForm); // create FormData from form element
 			// fetch("/api/hello")
 			// 	.then(res => {
@@ -32,6 +35,7 @@
 			// 	.catch(err => {
 			// 		console.error("An error occurred");
 			// 	});
+			toggleAddCourseModal(); // close modal
 		});
 
 		// add new course
