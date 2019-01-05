@@ -44,7 +44,7 @@
 			// STORE COURSE DATA IN SESSIONSTORAGE
 			// RENDER NEW COURSE COMPONENT
 			const newCourseComponent = `
-			<div class="notification is-primary is-12 box" courseID="${courseID}">
+			<div class="notification is-primary is-12 box" data-course_id="${courseID}">
 			<button class="delete"></button>
 			<div class="columns">
 			<div class="column is-11">
