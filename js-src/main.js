@@ -1,14 +1,17 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
+		const courseCounter = document.getElementById("courseCounter");
+		const sectionCounter = document.getElementById("sectionCounter");
+		const scheduleCounter = document.getElementById("scheduleCounter");
 		const addCourseForm = document.getElementById("addCourseForm");
 		const courseList = document.getElementById("courseList");
 		const addCourseModal = document.getElementById("createCourseModal");
 		const addCourseBtn = document.getElementById("addCourseBtn");
 		const addCourseModalCloseBtn = document.getElementById(
-			"addCourseCloseModal",
+			"addCourseCloseModal"
 		);
 		const addCourseCancelBtn = document.getElementById(
-			"addCourseCancelBtn",
+			"addCourseCancelBtn"
 		);
 
 		// UTILITY FUNCTIONS
@@ -69,6 +72,8 @@
 				.addEventListener("click", event => {
 					event.target.parentNode.remove() // removes course component 
 				})
+			// Increment course counter
+			courseCounter.innerText = parseInt(courseCounter.innerText) + 1;
 		}
 		// remove existing course
 		function removeCourse() {
