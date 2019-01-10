@@ -3,8 +3,6 @@ import * as components from "./components";
 
 (() => {
 	// Session Storage Initialization
-	window.sessionStorage.setItem("courses", {});
-	window.sessionStorage.setItem("loggedIn", false);
 
 	document.addEventListener("DOMContentLoaded", () => {
 		// PSUEDO GLOBALS
