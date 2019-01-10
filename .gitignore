@@ -336,3 +336,5 @@ test.py
 .vscode
 package.json
 package-lock.json
+dist
+dist/bundle.js
