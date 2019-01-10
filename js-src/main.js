@@ -1,42 +1,55 @@
+import * as hyperHTML from "hyperhtml";
+import * as components from "./components";
+
 (() => {
+	// Session Storage Initialization
+	window.sessionStorage.setItem("courses", {});
+	window.sessionStorage.setItem("loggedIn", false);
+
 	document.addEventListener("DOMContentLoaded", () => {
+		// PSUEDO GLOBALS
+		let courses = {};
 		const courseCounter = document.getElementById("courseCounter");
-		const sectionCounter = document.getElementById("sectionCounter");
-		const scheduleCounter = document.getElementById("scheduleCounter");
 		const addCourseForm = document.getElementById("addCourseForm");
 		const courseList = document.getElementById("courseList");
 		const addCourseModal = document.getElementById("createCourseModal");
 		const addCourseBtn = document.getElementById("addCourseBtn");
 		const addCourseModalCloseBtn = document.getElementById(
-			"addCourseCloseModal"
+			"addCourseCloseModal",
 		);
 		const addCourseCancelBtn = document.getElementById(
-			"addCourseCancelBtn"
+			"addCourseCancelBtn",
 		);
 
 		// UTILITY FUNCTIONS
 		function toggleAddCourseModal() {
 			addCourseModal.classList.toggle("is-active");
 		}
-
+		// RENDER FUNCTIONS
+		function renderCourses() {
+			hyperHTML.bind(courseList)`
+				${Object.keys(courses).map(key =>
+					components.courseComponent(key, courses[key]),
+				)}
+			`;
+		}
 		// Event Listeners
 		// Add Course Modal Toggling
-		addCourseBtn.addEventListener("click", toggleAddCourseModal);
-		addCourseModalCloseBtn.addEventListener("click", toggleAddCourseModal);
-		addCourseCancelBtn.addEventListener("click", toggleAddCourseModal);
+		addCourseBtn.onclick = toggleAddCourseModal;
+		addCourseModalCloseBtn.onclick = toggleAddCourseModal;
+		addCourseCancelBtn.onclick = toggleAddCourseModal;
 
 		// Form Submit Button
 		addCourseForm.addEventListener("submit", event => {
 			event.preventDefault(); // disable default page refresh behavior on submit
-			console.log("Ran Add Course");
 			let addCourseFormData = new FormData(addCourseForm); // create FormData from form element
 			// fetch("/api/hello")
 			// 	.then(res => {
-				// 		console.log(res);
-				// 	})
-				// 	.catch(err => {
-					// 		console.error("An error occurred");
-					// 	});
+			// 		console.log(res);
+			// 	})
+			// 	.catch(err => {
+			// 		console.error("An error occurred");
+			// 	});
 			addCourse(...addCourseFormData.values());
 			toggleAddCourseModal();
 		});
@@ -44,34 +57,14 @@
 		// add new course
 		function addCourse(courseID, courseName) {
 			// SEND DATA TO SERVER FOR VALIDATION
-			// STORE COURSE DATA IN SESSIONSTORAGE
-			// RENDER NEW COURSE COMPONENT
-			const newCourseComponent = `
-			<div class="notification is-primary is-12 box" data-course_id="${courseID}">
-				<button class="delete"></button>
-				<div class="columns">
-					<div class="column is-11">
-						<p class="title">${courseID} - ${courseName}</p>
-					</div>
-					<div class="column is-1">
-						<button class="button is-white">
-							<span class="icon">
-								<i class="fas fa-pencil-alt fa-lg"></i>
-							</span>
-							<span>
-								Edit
-							</span>
-						</button>
-					</div>
-				</div>
-			</div>`;
-			courseList.insertAdjacentHTML("beforeend", newCourseComponent);
+			// STORE COURSE DATA
+			courses[courseID] = {
+				name: courseName,
+			};
+			// // RENDER NEW COURSE COMPONENT
+			// courseList.insertAdjacentHTML("beforeend", newCourseComponent);
+			renderCourses();
 
-			// Event Listener for Delete Button
-			document.querySelector(`div .notification[data-course_id="${courseID}"`)
-				.addEventListener("click", event => {
-					event.target.parentNode.remove() // removes course component 
-				})
 			// Increment course counter
 			courseCounter.innerText = parseInt(courseCounter.innerText) + 1;
 		}
