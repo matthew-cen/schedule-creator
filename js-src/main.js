@@ -6,12 +6,11 @@ import * as components from "./components";
 		// PSUEDO GLOBALS
 		let courses = {};
 		const courseCounter = document.getElementById("courseCounter");
-		const addCourseForm = document.getElementById("addCourseForm");
 		const courseList = document.getElementById("courseList");
 
 		// UTILITY FUNCTIONS
 		function toggleAddCourseModal() {
-			document.getElementById("createCourseModal").classList.toggle("is-active");
+			document.getElementById("addCourseModal").classList.toggle("is-active");
 		}
 		// RENDER FUNCTIONS
 		function renderCourses() {
@@ -24,17 +23,13 @@ import * as components from "./components";
 		// Add Course Modal Toggling
 		document.getElementById("addCourseBtn").onclick = toggleAddCourseModal;
 		document.getElementById(
-			"addCourseCloseModal"
-		).onclick = toggleAddCourseModal;
-		document.getElementById(
-			"addCourseCancelBtn"
+			"addCourseFormCancelBtn"
 		).onclick = toggleAddCourseModal;
 
 		// Form Submit Button
-		addCourseForm.onsubmit = event => {
+		document.getElementById("addCourseForm").onsubmit = event => {
 			event.preventDefault(); // disable default page refresh behavior on submit
-			console.log("FORM SUBMIT EVENT");
-			let addCourseFormData = new FormData(addCourseForm); // create FormData from form element
+			let addCourseFormData = new FormData(event.target); // create FormData from form element
 			// fetch("/api/hello")
 			// 	.then(res => {
 			// 		console.log(res);
