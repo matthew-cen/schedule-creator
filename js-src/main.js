@@ -2,44 +2,38 @@ import * as hyperHTML from "hyperhtml";
 import * as components from "./components";
 
 (() => {
-	// Session Storage Initialization
-
 	document.addEventListener("DOMContentLoaded", () => {
 		// PSUEDO GLOBALS
 		let courses = {};
 		const courseCounter = document.getElementById("courseCounter");
 		const addCourseForm = document.getElementById("addCourseForm");
 		const courseList = document.getElementById("courseList");
-		const addCourseModal = document.getElementById("createCourseModal");
-		const addCourseBtn = document.getElementById("addCourseBtn");
-		const addCourseModalCloseBtn = document.getElementById(
-			"addCourseCloseModal",
-		);
-		const addCourseCancelBtn = document.getElementById(
-			"addCourseCancelBtn",
-		);
 
 		// UTILITY FUNCTIONS
 		function toggleAddCourseModal() {
-			addCourseModal.classList.toggle("is-active");
+			document.getElementById("createCourseModal").classList.toggle("is-active");
 		}
 		// RENDER FUNCTIONS
 		function renderCourses() {
 			hyperHTML.bind(courseList)`
-				${Object.keys(courses).map(key =>
-					components.courseComponent(key, courses[key]),
-				)}
+				${Object.keys(courses).map(key => components.courseComponent(key, courses[key]))}
 			`;
 		}
+
 		// Event Listeners
 		// Add Course Modal Toggling
-		addCourseBtn.onclick = toggleAddCourseModal;
-		addCourseModalCloseBtn.onclick = toggleAddCourseModal;
-		addCourseCancelBtn.onclick = toggleAddCourseModal;
+		document.getElementById("addCourseBtn").onclick = toggleAddCourseModal;
+		document.getElementById(
+			"addCourseCloseModal"
+		).onclick = toggleAddCourseModal;
+		document.getElementById(
+			"addCourseCancelBtn"
+		).onclick = toggleAddCourseModal;
 
 		// Form Submit Button
-		addCourseForm.addEventListener("submit", event => {
+		addCourseForm.onsubmit = event => {
 			event.preventDefault(); // disable default page refresh behavior on submit
+			console.log("FORM SUBMIT EVENT");
 			let addCourseFormData = new FormData(addCourseForm); // create FormData from form element
 			// fetch("/api/hello")
 			// 	.then(res => {
@@ -50,14 +44,14 @@ import * as components from "./components";
 			// 	});
 			addCourse(...addCourseFormData.values());
 			toggleAddCourseModal();
-		});
+		};
 
 		// add new course
 		function addCourse(courseID, courseName) {
 			// SEND DATA TO SERVER FOR VALIDATION
 			// STORE COURSE DATA
 			courses[courseID] = {
-				name: courseName,
+				name: courseName
 			};
 			// // RENDER NEW COURSE COMPONENT
 			// courseList.insertAdjacentHTML("beforeend", newCourseComponent);
